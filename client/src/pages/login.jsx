@@ -10,10 +10,17 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { useState } from "react";
+import {
+  useLoginUserMutation,
+  useRegisterUserMutation,
+} from "@/features/api/authApi";
+
+import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function Auth() {
-  
   const [signupInput, setSignupInput] = useState({
     name: "",
     email: "",
@@ -21,22 +28,62 @@ export default function Auth() {
   });
   const [loginInput, setLoginInput] = useState({ email: "", password: "" });
 
-  const changeInputHandler= (e,type)=>{
-    const {name, value}=e.target;
-    if(type=="signup"){
-     setSignupInput({...signupInput,[name]:value});
-
-    }else{
-      setLoginInput({...loginInput,[name]: value});
+  const [
+    registerUser,
+    {
+      data: registerData,
+      error: registerError,
+      isLoading: registerIsLoading,
+      isSuccess: registerIsSuccess,
+    },
+  ] = useRegisterUserMutation();
+  const [
+    loginUser,
+    {
+      data: loginData,
+      error: loginError,
+      isLoading: loginIsLoading,
+      isSuccess: loginIsSuccess,
+    },
+  ] = useLoginUserMutation();
+  const navigate =useNavigate()
+  const changeInputHandler = (e, type) => {
+    const { name, value } = e.target;
+    if (type == "signup") {
+      setSignupInput({ ...signupInput, [name]: value });
+    } else {
+      setLoginInput({ ...loginInput, [name]: value });
     }
-  }
-  const handleRegistrationOrLogin=(type)=>{
-    const inputData= type==="signup"?signupInput:loginInput
-    console.log(inputData)
+  };
+  const handleRegistrationOrLogin = async (type) => {
+    const inputData = type === "signup" ? signupInput : loginInput;
+    const action = type === "signup" ? registerUser : loginUser;
+    console.log(inputData);
+    await action(inputData);
+  };
+  useEffect(() => {
+    if (registerIsSuccess && registerData) {
+      toast.success(registerData.message || "Signup successful.");
+    }
+    if (registerError) {
+      toast.error(registerError.data.message || "Signup Failed");
+    }
+    if (loginIsSuccess && loginData) {
+      toast.success(loginData.message || "Login successful.");
+      navigate("/");
+    }
+    if (loginError) {
+      toast.error(loginError.data.message || "login Failed");
+    }
+  }, [
+    loginIsLoading,
+    registerIsLoading,
+    loginData,
+    registerData,
+    loginError,
+    registerError,
+  ]);
 
-    
-
-  }
   return (
     <Tabs defaultValue="signup" className="w-[400px] mx-auto mt-10">
       <TabsList className="grid w-full grid-cols-2">
@@ -60,7 +107,7 @@ export default function Auth() {
                 type="text"
                 name="name"
                 value={signupInput.name}
-                onChange={(e)=>changeInputHandler(e,"signup")}
+                onChange={(e) => changeInputHandler(e, "signup")}
                 placeholder="Enter your name"
                 defaultValue="Prince Pal"
               />
@@ -70,7 +117,7 @@ export default function Auth() {
               <Input
                 name="email"
                 value={signupInput.email}
-                onChange={(e)=>changeInputHandler(e,"signup")}
+                onChange={(e) => changeInputHandler(e, "signup")}
                 placeholder="Enter your email"
                 type="email"
                 defaultValue="pal265354@gmail.com"
@@ -81,8 +128,7 @@ export default function Auth() {
               <Input
                 name="password"
                 value={signupInput.password}
-
-                onChange={(e)=>changeInputHandler(e,"signup")}
+                onChange={(e) => changeInputHandler(e, "signup")}
                 placeholder="Enter your password"
                 type="password"
                 defaultValue="12345678"
@@ -90,7 +136,17 @@ export default function Auth() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button onClick={()=>handleRegistrationOrLogin("signup")}>Create Account</Button>
+            <Button
+              disabled={registerIsLoading}
+              onClick={() => handleRegistrationOrLogin("signup")}
+            >
+              {registerIsLoading ? (
+                <>  <Loader2 className="mr-2 h-4 w-4 animate-spin" />wait...</>
+              
+              ) : (
+                "Create Account"
+              )}
+            </Button>
           </CardFooter>
         </Card>
       </TabsContent>
@@ -110,7 +166,7 @@ export default function Auth() {
               <Input
                 name="email"
                 value={loginInput.email}
-                onChange={(e)=>changeInputHandler(e,"login")}
+                onChange={(e) => changeInputHandler(e, "login")}
                 placeholder="Enter your email"
                 type="email"
               />
@@ -120,14 +176,23 @@ export default function Auth() {
               <Input
                 name="password"
                 value={loginInput.password}
-                onChange={(e)=>changeInputHandler(e,"login")}
+                onChange={(e) => changeInputHandler(e, "login")}
                 placeholder="Enter your password"
                 type="password"
               />
             </div>
           </CardContent>
           <CardFooter>
-            <Button onClick={()=>handleRegistrationOrLogin("login")}>Login</Button>
+            <Button onClick={() => handleRegistrationOrLogin("login")}>
+              {loginIsLoading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  please wait..
+                </>
+              ) : (
+                "Login"
+              )}
+            </Button>
           </CardFooter>
         </Card>
       </TabsContent>
