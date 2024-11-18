@@ -30,6 +30,13 @@ export default function Auth() {
       setLoginInput({...loginInput,[name]: value});
     }
   }
+  const handleRegistrationOrLogin=(type)=>{
+    const inputData= type==="signup"?signupInput:loginInput
+    console.log(inputData)
+
+    
+
+  }
   return (
     <Tabs defaultValue="signup" className="w-[400px] mx-auto mt-10">
       <TabsList className="grid w-full grid-cols-2">
@@ -83,7 +90,7 @@ export default function Auth() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button>Create Account</Button>
+            <Button onClick={()=>handleRegistrationOrLogin("signup")}>Create Account</Button>
           </CardFooter>
         </Card>
       </TabsContent>
@@ -101,7 +108,7 @@ export default function Auth() {
             <div className="space-y-2">
               <Label htmlFor="login-email">Email</Label>
               <Input
-                id="login-email"
+                name="email"
                 value={loginInput.email}
                 onChange={(e)=>changeInputHandler(e,"login")}
                 placeholder="Enter your email"
@@ -111,7 +118,7 @@ export default function Auth() {
             <div className="space-y-2">
               <Label htmlFor="login-password">Password</Label>
               <Input
-                id="login-password"
+                name="password"
                 value={loginInput.password}
                 onChange={(e)=>changeInputHandler(e,"login")}
                 placeholder="Enter your password"
@@ -120,7 +127,7 @@ export default function Auth() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button>Login</Button>
+            <Button onClick={()=>handleRegistrationOrLogin("login")}>Login</Button>
           </CardFooter>
         </Card>
       </TabsContent>
