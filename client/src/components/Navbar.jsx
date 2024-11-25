@@ -25,7 +25,7 @@ function Navbar() {
  
   const user =false;
   return (
-    <div className='h-16 dark:bg-[#0A0A0A] bg-white border-b dark:bg-border-gray-900 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10'>
+    <div className='h-16 dark:bg-[#0A0A0A] bg-white border-b dark:bg-border-gray-300 border-b-gray-200 fixed top-0 left-0 right-0 duration-300 z-10'>
 {/* desktop */}
 <div className='max-w-7xl mx-auto hidden md:flex justify-between items-center gap-10 h-full'>
 <div className="flex items-center gap-2">
@@ -102,8 +102,8 @@ const MobileDevice=()=>{
         <DarkMode/>
       </SheetHeader>
       <div className="grid gap-3 py-4 my-2">
-        <h1>My Learning</h1>
-        <h1>Edit Profile</h1>
+        <h1><Link to={"/my-learning"}>My Learning</Link></h1>
+        <h1><Link to={"/profile"}>Edit Profile</Link></h1>
         <h1>Logout</h1>
       </div>
       {

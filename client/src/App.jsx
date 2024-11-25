@@ -1,7 +1,7 @@
 
 import './App.css'
 import { Button } from './components/ui/button'
-import LogIn from './pages/Login'
+
 import Navbar from './components/Navbar'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import MainLayout from './Layout/MainLayout'
@@ -10,29 +10,47 @@ import HeroSection from './pages/student/HeroSection'
 import Courses from './pages/student/Courses'
 import { ThemeProvider } from './components/ThemeProvider'
 import React from 'react'
+import Profile from './pages/student/Profile'
+import MyLearning from './pages/student/MyLearning'
 
-const appRouter =createBrowserRouter([
+const appRouter = createBrowserRouter([
   {
     path: "/",
-    element:<MainLayout/>,
+    element: <MainLayout />,
     children: [
       {
         path: "/",
-        element: 
+        element:
           (<>
-            <HeroSection/>
-            <Courses/>
+            <HeroSection />
+            <Courses />
           </>)
-        },
-        {
-          path: "login",
-          element: (
-            
-              <Auth/>
-       
-          )
-        }
-      
+      },
+      {
+        path: "login",
+        element: (
+
+          <Auth />
+
+        )
+      }
+      , {
+        path: "my-learning",
+        element: (
+
+          <MyLearning />
+
+
+        )
+      }, {
+        path: "profile",
+        element: (
+
+          <Profile />
+
+        )
+      }
+
     ]
   }
 ])
@@ -42,10 +60,10 @@ function App() {
 
   return (
     <main>
-   <ThemeProvider>
-    <RouterProvider  router={appRouter}/>
+      <ThemeProvider>
+        <RouterProvider router={appRouter} />
 
-   </ThemeProvider>
+      </ThemeProvider>
     </main>
   )
 }
