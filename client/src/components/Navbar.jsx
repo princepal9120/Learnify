@@ -71,7 +71,7 @@ function Navbar() {
     ):(
     <div className='flex items-center gap-3'>
          <Link to="/login"> <Button variant='ghost'>Login</Button></Link>
-         <Link to="/login"> <Button variant='ghost'>Login</Button></Link>
+         <Link to="/login"> <Button >Signup</Button></Link>
     </div>
     )
   }
