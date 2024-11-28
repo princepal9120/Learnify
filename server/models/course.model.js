@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+
 const courseSchema = new mongoose.Schema({
   courseTitle: {
     type: String,
@@ -44,4 +44,4 @@ const courseSchema = new mongoose.Schema({
   }
 },{timestamps: true});
 
-export default Course = mongoose.model("Course", courseSchema);
+export const Course = mongoose.model("Course", courseSchema);
