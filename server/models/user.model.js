@@ -16,7 +16,7 @@ const userSchema =new mongoose.Schema({
         enum: ["student","instructor"],
         default: "student",
     } ,
-    enrolledCourse:[
+    enrolledCourses:[
         {
            type: mongoose.Schema.Types.ObjectId,
            ref: "Course" 

@@ -47,7 +47,7 @@ export default function Auth() {
       isSuccess: loginIsSuccess,
     },
   ] = useLoginUserMutation();
-  const navigate =useNavigate()
+  const navigate = useNavigate();
   const changeInputHandler = (e, type) => {
     const { name, value } = e.target;
     if (type == "signup") {
@@ -142,8 +142,11 @@ export default function Auth() {
               onClick={() => handleRegistrationOrLogin("signup")}
             >
               {registerIsLoading ? (
-                <>  <Loader2 className="mr-2 h-4 w-4 animate-spin" />wait...</>
-              
+                <>
+                  {" "}
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  wait...
+                </>
               ) : (
                 "Create Account"
               )}

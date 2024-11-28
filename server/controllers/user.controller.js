@@ -1,6 +1,7 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../utils/generateToken.js";
+import { deleteMediaFromCloudinary, uploadMedia } from "../utils/cloudinary.js";
 
 export const register = async (req, res) => {
   try {
@@ -51,7 +52,7 @@ export const login = async (req, res) => {
             message: "Incorrect email or password"
         })
     }
-    const isPasswordMatch= await bcrypt.match(password, user.password)
+    const isPasswordMatch= await bcrypt.compare(password, user.password)
     if(!isPasswordMatch){
         return res.status(401).json({
             success: false,
@@ -69,7 +70,7 @@ export const login = async (req, res) => {
   }
 };
 
-export const logout= async (req,res) => {
+export const logout= async (_,res) => {
   
 
   try {
@@ -92,7 +93,7 @@ export const getUserProfile= async (req,res) => {
   
   try {
      const userId= req.id
-     const user=await User.findById(userId).select("-password").populate(enrolledCourse);
+     const user=await User.findById(userId).select("-password");
      if(!user){
       return res.status(404).json({
         message: "Profile not found.",
@@ -126,8 +127,22 @@ export const updateProfile =async (req,res) => {
         message: "User not found",
       })
     }
+// extract public id of the old image  from the url if it is exists
+if(user.photoUrl){
+  const publicId=user.photoUrl.split("/").pop().split(".")[0];
+    deleteMediaFromCloudinary(publicId);
+}
+// upload new photo 
+const cloudResponse =await uploadMedia(profilePhoto.path);
+const photoUrl=cloudResponse.secure_url;
 
-
+const updateData= {name, photoUrl};
+const updatedUser=await User.findByIdAndUpdate(userId, updateData,{new: true}).select("-password");
+return res.status(200).json({
+  success: true,
+  updatedUser,
+  message:"Profile updated Successfully."
+})
   } catch (error) {
     console.log(error)
     return res.status(500).json({
