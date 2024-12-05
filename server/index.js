@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser"
 import connectDB from "./Config/db.js";
 import cors from "cors"
 import userRoute from "./routes/user.route.js"
+import createCourse from './routes/course.route.js
 dotenv.config({});
 const app =express();
 
@@ -21,6 +22,7 @@ const app =express();
 
 //apis
 app.use("/api/v1/user",userRoute)
+app.user("api/v1/course" courseRoute)
 
 
 
