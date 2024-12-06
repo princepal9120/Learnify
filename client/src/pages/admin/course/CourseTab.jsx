@@ -21,12 +21,15 @@ import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEditCourseMutation } from "@/features/api/courseApi";
+import { useEditCourseMutation, useGetCourseByIdQuery } from "@/features/api/courseApi";
 import { toast } from "sonner";
 
 function CourseTab() {
   const isPublished = true;
+  const params = useParams();
+  const courseId = params.courseId;
   const navigate = useNavigate();
+  const {data:courseByIdData, isLoading:courseByIdLoading} =useGetCourseByIdQuery(courseId);
   const [previewThumbnail, setPreviewThumbnail] = useState('')
   const [input, setInput] = useState({
     courseTitle: "",
@@ -38,8 +41,7 @@ function CourseTab() {
     courseThumbnail: "",
   });
   const [editCourse, { data, isLoading, isSuccess, error }] = useEditCourseMutation();
-  const params = useParams();
-  const courseId = params.courseId;
+
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
@@ -65,17 +67,17 @@ function CourseTab() {
 
   }
   const updateCourseHandler = async () => {
-    console.log(input);
     const formData = new FormData();
-    formData.append("courseTitle", input.courseTitle)
-    formData.append("subTitle", input.subTitle)
-    formData.append("description", input.description)
-    formData.append("category", input.category)
-    formData.append("courseLevel", input.courseLevel)
-    formData.append("coursePrice", input.coursePrice)
-    formData.append("courseThumbnail", input.courseThumbnail)
-    await editCourse({ formData, courseId })
-  }
+    formData.append("courseTitle", input.courseTitle);
+    formData.append("subTitle", input.subTitle);
+    formData.append("description", input.description);
+    formData.append("category", input.category);
+    formData.append("courseLevel", input.courseLevel);
+    formData.append("coursePrice", input.coursePrice);
+    formData.append("courseThumbnail", input.courseThumbnail);
+
+    await editCourse({ formData, courseId });
+  };
   useEffect(() => {
     if (isSuccess) {
       toast.success(data.message || "Course Update.")
@@ -84,6 +86,23 @@ function CourseTab() {
       toast.error(error.data.message || "Failed to update course")
     }
   }, [isSuccess, error])
+   
+  useEffect(()=>{
+
+    if(courseByIdData?.course){
+      const course=courseByIdData?.course;
+    setInput({
+      courseTitle: course.courseTitle,
+      subTitle: course.subTitle,
+      description: course.description,
+      category: course.category,
+      courseLevel: course.courseLevel,
+      coursePrice: course.coursePrice,
+      courseThumbnail: "", 
+    })
+    }
+  },[courseId])
+  if(courseByIdLoading) return <Loader2 className="size-48 animate-spin"/>
   return (
     <Card className=" ">
       <CardHeader className="flex flex-row justify-between">
