@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser"
 import connectDB from "./Config/db.js";
 import cors from "cors"
 import userRoute from "./routes/user.route.js"
-import createCourse from './routes/course.route.js
+import courseRoute from './routes/course.route.js'
 dotenv.config({});
 const app =express();
 
@@ -15,14 +15,14 @@ const app =express();
  app.use(express.json());
  app.use(cookieParser());
  app.use(cors({
-    origin: "http://localhost:5174",
+    origin: "http://localhost:5173",
     credentials: true,
  }))
 
 
 //apis
 app.use("/api/v1/user",userRoute)
-app.user("api/v1/course" courseRoute)
+app.use("/api/v1/course" ,courseRoute)
 
 
 
