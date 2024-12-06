@@ -71,7 +71,9 @@ function AddCourse() {
                 <SelectItem value="ml">Machine learning</SelectItem>
                 <SelectItem value="mern">Mern</SelectItem>
                 <SelectItem value="ai">Artificial Intelligence</SelectItem>
-                <SelectItem value="nextjs">Nextjs</SelectItem>
+                <SelectItem value="nextjs">Nextjs</SelectItem>   <SelectItem value="mern">Javascript</SelectItem>
+                <SelectItem value="dsa">Data structure & Algorithm</SelectItem>
+                <SelectItem value="java-sb">Java SpringBoot</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
