@@ -1,7 +1,4 @@
 import "./App.css";
-import { Button } from "./components/ui/button";
-
-import Navbar from "./components/Navbar";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainLayout from "./Layout/MainLayout";
 import Auth from "./pages/Login";
@@ -13,13 +10,12 @@ import Profile from "./pages/student/Profile";
 import MyLearning from "./pages/student/MyLearning";
 import Sidebar from "./pages/admin/Sidebar";
 import Dashboard from "./pages/admin/Dashboard";
-import Course from "./pages/student/Course";
 import AddCourse from "./pages/admin/course/AddCourse";
 import CourseTable from "./pages/admin/course/CourseTable";
 import EditCourse from "./pages/admin/course/EditCourse";
 import CreateLecture from "./pages/admin/lecture/CreateLecture";
-import Lecture from "./pages/admin/lecture/Lecture";
 import EditLecture from "./pages/admin/lecture/EditLecture";
+import CourseDetail from "./pages/student/CourseDetail";
 
 const appRouter = createBrowserRouter([
   {
@@ -46,6 +42,10 @@ const appRouter = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "course-detail/:courseId",
+        element: <CourseDetail/>,
       },
       //admin routes
       {
