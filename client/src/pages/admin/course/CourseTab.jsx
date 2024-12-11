@@ -21,7 +21,10 @@ import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useEditCourseMutation, useGetCourseByIdQuery } from "@/features/api/courseApi";
+import {
+  useEditCourseMutation,
+  useGetCourseByIdQuery,
+} from "@/features/api/courseApi";
 import { toast } from "sonner";
 
 function CourseTab() {
@@ -29,8 +32,9 @@ function CourseTab() {
   const params = useParams();
   const courseId = params.courseId;
   const navigate = useNavigate();
-  const {data:courseByIdData, isLoading:courseByIdLoading} =useGetCourseByIdQuery(courseId);
-  const [previewThumbnail, setPreviewThumbnail] = useState('')
+  const { data: courseByIdData, isLoading: courseByIdLoading } =
+    useGetCourseByIdQuery(courseId);
+  const [previewThumbnail, setPreviewThumbnail] = useState("");
   const [input, setInput] = useState({
     courseTitle: "",
     subTitle: "",
@@ -40,32 +44,30 @@ function CourseTab() {
     coursePrice: "",
     courseThumbnail: "",
   });
-  const [editCourse, { data, isLoading, isSuccess, error }] = useEditCourseMutation();
+  const [editCourse, { data, isLoading, isSuccess, error }] =
+    useEditCourseMutation();
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
     setInput({ ...input, [name]: value });
   };
   const selectCategory = (value) => {
-    setInput({ ...input, category: value })
-
-
-  }
+    setInput({ ...input, category: value });
+  };
   const selectCourseLevel = (value) => {
-    setInput({ ...input, courseLevel: value })
-  }
+    setInput({ ...input, courseLevel: value });
+  };
   //get file
   const selectThumbnail = (e) => {
     const file = e.target.files?.[0];
     // console.log(file);
     if (file) {
-      setInput({ ...input, courseThumbnail: file })
+      setInput({ ...input, courseThumbnail: file });
       const fileReader = new FileReader();
-      fileReader.onload = () => setPreviewThumbnail(fileReader.result)
-      fileReader.readAsDataURL(file)
+      fileReader.onload = () => setPreviewThumbnail(fileReader.result);
+      fileReader.readAsDataURL(file);
     }
-
-  }
+  };
   const updateCourseHandler = async () => {
     const formData = new FormData();
     formData.append("courseTitle", input.courseTitle);
@@ -80,29 +82,28 @@ function CourseTab() {
   };
   useEffect(() => {
     if (isSuccess) {
-      toast.success(data.message || "Course Update.")
+      toast.success(data.message || "Course Update.");
     }
     if (error) {
-      toast.error(error.data.message || "Failed to update course")
+      toast.error(error.data.message || "Failed to update course");
     }
-  }, [isSuccess, error])
-   
-  useEffect(()=>{
+  }, [isSuccess, error]);
 
-    if(courseByIdData?.course){
-      const course=courseByIdData?.course;
-    setInput({
-      courseTitle: course.courseTitle,
-      subTitle: course.subTitle,
-      description: course.description,
-      category: course.category,
-      courseLevel: course.courseLevel,
-      coursePrice: course.coursePrice,
-      courseThumbnail: "", 
-    })
+  useEffect(() => {
+    if (courseByIdData?.course) {
+      const course = courseByIdData?.course;
+      setInput({
+        courseTitle: course.courseTitle,
+        subTitle: course.subTitle,
+        description: course.description,
+        category: course.category,
+        courseLevel: course.courseLevel,
+        coursePrice: course.coursePrice,
+        courseThumbnail: "",
+      });
     }
-  },[courseId])
-  if(courseByIdLoading) return <Loader2 className="size-48 animate-spin"/>
+  }, [courseId]);
+  if (courseByIdLoading) return <Loader2 className="size-48 animate-spin" />;
   return (
     <Card className=" ">
       <CardHeader className="flex flex-row justify-between">
@@ -148,8 +149,10 @@ function CourseTab() {
           <div className="flex items-center gap-3">
             <div>
               <Label>Category:</Label>
-              <Select defaultValue={input.category}
-                onValueChange={selectCategory}>
+              <Select
+                defaultValue={input.category}
+                onValueChange={selectCategory}
+              >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Select a course" />
                 </SelectTrigger>
@@ -175,16 +178,19 @@ function CourseTab() {
 
             <div>
               <Label>Course Level</Label>
-              <Select defaultValue={input.courseLevel} onValueChange={selectCourseLevel} >
+              <Select
+                defaultValue={input.courseLevel}
+                onValueChange={selectCourseLevel}
+              >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Select a course level" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Courses</SelectLabel>
-                    <SelectItem value="beginner">Beginner</SelectItem>
-                    <SelectItem value="medium">Medium</SelectItem>
-                    <SelectItem value="advance">Advance</SelectItem>
+                    <SelectItem value="Beginner">Beginner</SelectItem>
+                    <SelectItem value="Medium">Medium</SelectItem>
+                    <SelectItem value="Advance">Advance</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>
@@ -200,36 +206,39 @@ function CourseTab() {
                 className="w-fit"
               />
             </div>
-
           </div>
           <div>
             <Label>Course Thumbnail</Label>
-            <Input type="file"
+            <Input
+              type="file"
               accept="image/*"
               className="w-fit"
               onChange={selectThumbnail}
             />
-            {
-              previewThumbnail && (
-                <img src={previewThumbnail}
-                  className="e-64 my-2"
-                  alt="Course Thumbnail" />
-              )
-            }
+            {previewThumbnail && (
+              <img
+                src={previewThumbnail}
+                className="e-64 my-2"
+                alt="Course Thumbnail"
+              />
+            )}
           </div>
           <div className="space-x-3">
-            <Button variant="outline" onClick={() => navigate('/admin/course')}>cancel</Button>
-            <Button disabled={isLoading} onClick={updateCourseHandler}>{
-              isLoading ?
+            <Button variant="outline" onClick={() => navigate("/admin/course")}>
+              cancel
+            </Button>
+            <Button disabled={isLoading} onClick={updateCourseHandler}>
+              {isLoading ? (
                 <>
                   <Loader2 className="mr-2 size-18 animate-spin" />
                   please wait...
-                </> : ("Save")
-            }</Button>
+                </>
+              ) : (
+                "Save"
+              )}
+            </Button>
           </div>
         </div>
-
-
       </CardContent>
     </Card>
   );

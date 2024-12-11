@@ -28,6 +28,8 @@ const CreateLecture = () => {
   } = useGetCourseLectureQuery(courseId);
 
   const createLectureHandler = async () => {
+    console.log({ lectureTitle, courseId });
+
     await createLecture({ lectureTitle, courseId });
   };
 
