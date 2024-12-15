@@ -27,4 +27,4 @@ const CoursePurchaseSchema= new mongoose.Schema({
 
 },{timestamps: true});
 
-export const CoursePurchase =mongoose.model("CoursePurchase", CoursePurchase)
+export const CoursePurchase =mongoose.model("CoursePurchase", CoursePurchaseSchema)

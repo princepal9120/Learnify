@@ -6,6 +6,8 @@ import cors from "cors"
 import userRoute from "./routes/user.route.js"
 import courseRoute from './routes/course.route.js'
 import mediaRoute from './routes/media.route.js'
+import purchaseRoute from './routes/purchaseCourse.route.js'
+import courseProgressRoute from './routes/courseProgress.route.js'
 dotenv.config({});
 const app =express();
 
@@ -23,10 +25,12 @@ const app =express();
 
 
 //apis
+
 app.use("/api/v1/media", mediaRoute)
 app.use("/api/v1/user",userRoute)
 app.use("/api/v1/course" ,courseRoute)
-
+app.use("/api/v1/purchase" ,purchaseRoute)
+app.user("/api/v1/lprogress",courseProgressRoute)
 
 
  app.listen(Port, ()=>{
