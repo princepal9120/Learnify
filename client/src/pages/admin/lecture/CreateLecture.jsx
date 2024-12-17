@@ -52,8 +52,7 @@ const CreateLecture = () => {
           Let's add lectures, add some basic details for your new lecture
         </h1>
         <p className="text-sm">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus,
-          laborum!
+          add import things about your lecture in the title
         </p>
       </div>
       <div className="space-y-4">
@@ -90,7 +89,7 @@ const CreateLecture = () => {
           ) : lectureError ? (
             <p>Failed to load lectures.</p>
           ) : lectureData.lectures.length === 0 ? (
-            <p>No lectures availabe</p>
+            <p>No lectures available</p>
           ) : (
             lectureData.lectures.map((lecture, index) => (
               <Lecture

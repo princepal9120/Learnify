@@ -84,7 +84,7 @@ export const getPublishedCourse = async (req, res) => {
       message: "Courses are here.",
     });
   } catch (error) {
-    console.log(err);
+    console.log(error);
     return res.status(500).json({
       message: "Failed to get Published Course",
     });

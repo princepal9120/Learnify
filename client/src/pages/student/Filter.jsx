@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import React from "react";
 
 const categories = [
   { id: "nextjs", label: "Next JS" },
@@ -25,17 +26,27 @@ const categories = [
   { id: "html", label: "HTML" },
 ];
 
-function Filter() {
+function Filter({ handleFilterChange }) {
+  const [selectedCategories, setSelectedCategories] = React.useState([]);
+  const [sortByPrice, setSortByPrice] = React.useState("");
   const handleCategoryChange = (categoryId) => {
-    console.log(categoryId);
-
-    alert(categoryId);
+    setSelectedCategories((prevCategories) => {
+      const newCategories = prevCategories.includes(categoryId)
+        ? prevCategories.filter((id) => id !== categoryId)
+        : [...prevCategories, categoryId];
+      handleFilterChange(newCategories, sortByPrice);
+      return newCategories;
+    });
+  };
+  const selectByPriceHandler = (selectedValue) => {
+    setSortByPrice(selectedValue);
+    handleFilterChange(selectedCategories, selectedValue);
   };
   return (
     <div className="w-full md:w-[20%]">
       <div className="flex items-center justify-between">
         <h1 className="font-semibold text-lg md:text-xl">Filter Options</h1>
-        <Select>
+        <Select onValueChange={selectByPriceHandler}>
           <SelectTrigger>
             <SelectValue placeholder="Sort by" />
           </SelectTrigger>
@@ -58,8 +69,10 @@ function Filter() {
               id={category.id}
               onCheckedChange={() => handleCategoryChange(category.id)}
             />
-            <Label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed
-            peer-disabled:opacity-70">
+            <Label
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed
+            peer-disabled:opacity-70"
+            >
               {category.label}
             </Label>
           </div>

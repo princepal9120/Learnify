@@ -15,7 +15,7 @@ export const purchaseApi = createApi({
       query: (courseId) => ({
         url: "/checkout/create-checkout-session",
         method: "POST",
-        body: courseId,
+        body: { courseId },
       }),
     }),
     getCourseDetailWithStatus: builder.query({
@@ -33,4 +33,8 @@ export const purchaseApi = createApi({
   }),
 });
 
-export const { useCreateCheckoutSessionMutation ,useGetCourseDetailWithStatusQuery,useGetPurchasedCourseQuery} = purchaseApi;
+export const {
+  useCreateCheckoutSessionMutation,
+  useGetCourseDetailWithStatusQuery,
+  useGetPurchasedCourseQuery,
+} = purchaseApi;

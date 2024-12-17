@@ -13,9 +13,14 @@ function SearchPage() {
   const [selectedCategories, setSelectedCategories] = React.useState([]);
   const [sortByPrice, setSortByPrice] = React.useState("");
 
-  const { data, isLoading } = useGetSearchCourseQuery();
+  const { data, isLoading } = useGetSearchCourseQuery({
+    searchQuery: query,
+    categories: selectedCategories,
+    sortByPrice,
+
+  });
   
-  const isEmpty = true;
+  const isEmpty = !isLoading && data?.courses.length===0;
 
   const handleFilterChange = (categories, price) => {
     setSelectedCategories(categories);
@@ -41,7 +46,7 @@ function SearchPage() {
           ) : isEmpty ? (
             <CourseNotFound />
           ) : (
-            [1, 2, 3].map((idx) => <SearchResult key={idx} />)
+            data?.courses?.map((course) => <SearchResult key={course._id} course={course} />)
           )}
         </div>
       </div>

@@ -64,16 +64,18 @@ const Profile = () => {
     }
   }, [error, updateUserData, isSuccess, isError]);
 
-  if (isLoading) return( <div className="flex justify-center items-center h-screen bg-gray-100">
-  <div className="flex flex-col items-center gap-2">
-    <Loader2 className="h-10 w-10 animate-spin text-blue-500" />
-    <p className="text-lg text-gray-600">Please wait...</p>
-  </div>
-</div>)
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center h-screen bg-gray-100">
+        <div className="flex flex-col items-center gap-2">
+          <Loader2 className="h-10 w-10 animate-spin text-blue-500" />
+          <p className="text-lg text-gray-600">Please wait...</p>
+        </div>
+      </div>
+    );
   const user = data && data.user;
 
   console.log(user);
-  
 
   return (
     <div className="max-w-4xl mx-auto px-4 my-10">
@@ -168,12 +170,14 @@ const Profile = () => {
         </div>
       </div>
       <div>
-        <h1 className="font-medium text-lg text-center">Courses you're enrolled in</h1>
+        <h1 className="font-medium text-lg text-center">
+          Courses you're enrolled in
+        </h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 my-5">
           {user?.enrolledCourses?.length === 0 ? (
             <h1 className="text-center">You haven't enrolled yet</h1>
           ) : (
-            user?.enrolledCourses.map((course) => (
+            user?.enrolledCourses?.map((course) => (
               <Course course={course} key={course._id} />
             ))
           )}

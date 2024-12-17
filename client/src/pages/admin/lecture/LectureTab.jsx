@@ -22,7 +22,7 @@ import { use } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 
-const MEDIA_API = "https://localhost:8080/api/v1/media";
+const MEDIA_API = "http://localhost:8080/api/v1/media";
 
 function LectureTab() {
   const [lectureTitle, setLectureTitle] = useState("");
@@ -65,7 +65,7 @@ function LectureTab() {
         });
 
         if (res.data.success) {
-          console.log(res);
+          // console.log("res",res);
           setUploadVideoInfo({
             videoUrl: res.data.data.url,
             publicId: res.data.data.public_id,
@@ -151,7 +151,7 @@ function LectureTab() {
             onChange={fileChangeHandler}
             type="file"
             accept="video/*"
-            placeholder="Ex. Introduction to your topic"
+            
           />
         </div>
         <div className="flex items-center space-x-2 my-4">

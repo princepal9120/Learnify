@@ -10,7 +10,7 @@ function Lecture({ lecture, courseId, index }) {
   }
   return (
     <div className="flex justify-between items-center bg-[#F7F9FA] dark:bg-[#181819] mb-2 ">
-      <h1 className="font-bold text-gray-800 dark:text-red-100 uppercase">
+      <h1 className="font-bold text-gray-800 dark:text-red-100 ">
         Lecture- {index + 1} {lecture?.lectureTitle}
       </h1>
       <Edit

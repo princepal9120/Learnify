@@ -20,6 +20,11 @@ const isAuthenticated= async (req,res,next)=>{
         next()
 
     } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: "Authentication Error from client"
+        })
         
     }
 
