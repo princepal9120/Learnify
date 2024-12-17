@@ -53,8 +53,6 @@ function LectureTab() {
   }, [lecture]);
   const fileChangeHandler = async (e) => {
     const file = e.target.files[0];
-    console.log(file);
-
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
@@ -157,7 +155,11 @@ function LectureTab() {
           />
         </div>
         <div className="flex items-center space-x-2 my-4">
-          <Switch checked={isFree} onCheckedChange={setIsFree} id="airplane-mode" />
+          <Switch
+            checked={isFree}
+            onCheckedChange={setIsFree}
+            id="airplane-mode"
+          />
           <Label htmlFor="airplane-mode">is this video free ?</Label>
         </div>
         {mediaProgress && (

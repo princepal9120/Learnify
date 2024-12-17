@@ -30,8 +30,8 @@ export const courseProgressApi = createApi({
 
     inCompleteCourse: builder.mutation({
       query: (courseId) => ({
-        url: `/${courseId}`,
-        method: "POST/incomplete",
+        url: `/${courseId}/incomplete`,
+        method: "POST",
       }),
     }),
   }),
