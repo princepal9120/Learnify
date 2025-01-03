@@ -1,33 +1,36 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import React, { Suspense } from "react";
 import MainLayout from "./Layout/MainLayout";
-import Auth from "./pages/Login";
-import HeroSection from "./pages/student/HeroSection";
-import Courses from "./pages/student/Courses";
 import { ThemeProvider } from "./components/ThemeProvider";
-import React from "react";
-import Profile from "./pages/student/Profile";
-import MyLearning from "./pages/student/MyLearning";
-import Sidebar from "./pages/admin/Sidebar";
-import Dashboard from "./pages/admin/Dashboard";
-import AddCourse from "./pages/admin/course/AddCourse";
-import CourseTable from "./pages/admin/course/CourseTable";
-import EditCourse from "./pages/admin/course/EditCourse";
-import CreateLecture from "./pages/admin/lecture/CreateLecture";
-import EditLecture from "./pages/admin/lecture/EditLecture";
-import CourseDetail from "./pages/student/CourseDetail";
-import CourseProgress from "./pages/student/CourseProgress";
-import SearchPage from "./pages/student/SearchPage";
 import {
   AdminRoute,
   AuthenticatedUser,
   ProtectedRoute,
 } from "./components/ProtectedRoutes";
 import PurchaseCourseProtectedRoute from "./components/PurchaseCourseProtectedRoute";
-import Stats from "./components/Stats";
-import Categories from "./components/Categories";
-import Testimonials from "./components/Tesimonials";
-import CTA from "./components/CTA";
+import Loader from "./components/Loader";
+
+// Lazy-loaded components
+const Auth = React.lazy(() => import("./pages/Login"));
+const HeroSection = React.lazy(() => import("./pages/student/HeroSection"));
+const Courses = React.lazy(() => import("./pages/student/Courses"));
+const Profile = React.lazy(() => import("./pages/student/Profile"));
+const MyLearning = React.lazy(() => import("./pages/student/MyLearning"));
+const Sidebar = React.lazy(() => import("./pages/admin/Sidebar"));
+const Dashboard = React.lazy(() => import("./pages/admin/Dashboard"));
+const AddCourse = React.lazy(() => import("./pages/admin/course/AddCourse"));
+const CourseTable = React.lazy(() => import("./pages/admin/course/CourseTable"));
+const EditCourse = React.lazy(() => import("./pages/admin/course/EditCourse"));
+const CreateLecture = React.lazy(() => import("./pages/admin/lecture/CreateLecture"));
+const EditLecture = React.lazy(() => import("./pages/admin/lecture/EditLecture"));
+const CourseDetail = React.lazy(() => import("./pages/student/CourseDetail"));
+const CourseProgress = React.lazy(() => import("./pages/student/CourseProgress"));
+const SearchPage = React.lazy(() => import("./pages/student/SearchPage"));
+const Stats = React.lazy(() => import("./components/Stats"));
+const Categories = React.lazy(() => import("./components/Categories"));
+const Testimonials = React.lazy(() => import("./components/Tesimonials"));
+const CTA = React.lazy(() => import("./components/CTA"));
 
 const appRouter = createBrowserRouter([
   {
@@ -37,21 +40,23 @@ const appRouter = createBrowserRouter([
       {
         path: "/",
         element: (
-          <>
+          <Suspense fallback={<Loader/>}>
             <HeroSection />
             <Stats />
             <Courses />
             <Categories />
-          <Testimonials />
-          <CTA />
-          </>
+            <Testimonials />
+            <CTA />
+          </Suspense>
         ),
       },
       {
         path: "login",
         element: (
           <AuthenticatedUser>
-            <Auth />
+            <Suspense fallback={<Loader/>}>
+              <Auth />
+            </Suspense>
           </AuthenticatedUser>
         ),
       },
@@ -59,7 +64,9 @@ const appRouter = createBrowserRouter([
         path: "my-learning",
         element: (
           <ProtectedRoute>
-            <MyLearning />
+            <Suspense fallback={<Loader/>}>
+              <MyLearning />
+            </Suspense>
           </ProtectedRoute>
         ),
       },
@@ -67,7 +74,9 @@ const appRouter = createBrowserRouter([
         path: "profile",
         element: (
           <ProtectedRoute>
-            <Profile />
+            <Suspense fallback={<Loader/>}>
+              <Profile />
+            </Suspense>
           </ProtectedRoute>
         ),
       },
@@ -75,7 +84,9 @@ const appRouter = createBrowserRouter([
         path: "course/search",
         element: (
           <ProtectedRoute>
-            <SearchPage />
+            <Suspense fallback={<Loader/>}>
+              <SearchPage />
+            </Suspense>
           </ProtectedRoute>
         ),
       },
@@ -83,7 +94,9 @@ const appRouter = createBrowserRouter([
         path: "course-detail/:courseId",
         element: (
           <ProtectedRoute>
-            <CourseDetail />
+            <Suspense fallback={<Loader/>}>
+              <CourseDetail />
+            </Suspense>
           </ProtectedRoute>
         ),
       },
@@ -92,45 +105,71 @@ const appRouter = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <PurchaseCourseProtectedRoute>
-              {" "}
-              <CourseProgress />
+              <Suspense fallback={<Loader/>}>
+                <CourseProgress />
+              </Suspense>
             </PurchaseCourseProtectedRoute>
           </ProtectedRoute>
         ),
       },
-      //admin routes
+      // Admin routes
       {
         path: "admin",
         element: (
           <AdminRoute>
-            {" "}
-            <Sidebar />
+            <Suspense fallback={<Loader/>}>
+              <Sidebar />
+            </Suspense>
           </AdminRoute>
         ),
         children: [
           {
             path: "dashboard",
-            element: <Dashboard />,
+            element: (
+              <Suspense fallback={<Loader/>}>
+                <Dashboard />
+              </Suspense>
+            ),
           },
           {
             path: "course/create",
-            element: <AddCourse />,
+            element: (
+              <Suspense fallback={<Loader/>}>
+                <AddCourse />
+              </Suspense>
+            ),
           },
           {
             path: "course",
-            element: <CourseTable />,
+            element: (
+              <Suspense fallback={<Loader/>}>
+                <CourseTable />
+              </Suspense>
+            ),
           },
           {
             path: "course/:courseId",
-            element: <EditCourse />,
+            element: (
+              <Suspense fallback={<Loader/>}>
+                <EditCourse />
+              </Suspense>
+            ),
           },
           {
             path: "course/:courseId/lecture",
-            element: <CreateLecture />,
+            element: (
+              <Suspense fallback={<Loader/>}>
+                <CreateLecture />
+              </Suspense>
+            ),
           },
           {
             path: "course/:courseId/lecture/:lectureId",
-            element: <EditLecture />,
+            element: (
+              <Suspense fallback={<Loader/>}>
+                <EditLecture />
+              </Suspense>
+            ),
           },
         ],
       },
@@ -139,8 +178,6 @@ const appRouter = createBrowserRouter([
 ]);
 
 function App() {
-  const [count, setCount] = React.useState(0);
-
   return (
     <main>
       <ThemeProvider>
