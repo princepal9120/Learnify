@@ -10,7 +10,7 @@ import {
 } from "./components/ProtectedRoutes";
 import PurchaseCourseProtectedRoute from "./components/PurchaseCourseProtectedRoute.jsx";
 import Loader from "./components/Loader.jsx";
-import Login from "./pages/Login.jsx";
+import Login from "./pages/login.jsx";
 // Lazy-loaded components
 
 const HeroSection = React.lazy(() => import("./pages/student/HeroSection.jsx"));
