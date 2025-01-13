@@ -10,9 +10,9 @@ import {
 } from "./components/ProtectedRoutes";
 import PurchaseCourseProtectedRoute from "./components/PurchaseCourseProtectedRoute";
 import Loader from "./components/Loader";
-
+import Auth from "./pages/Login";
 // Lazy-loaded components
-const Auth = React.lazy(() => import("./pages/Login"));
+
 const HeroSection = React.lazy(() => import("./pages/student/HeroSection"));
 const Courses = React.lazy(() => import("./pages/student/Courses"));
 const Profile = React.lazy(() => import("./pages/student/Profile"));
@@ -40,7 +40,7 @@ const appRouter = createBrowserRouter([
       {
         path: "/",
         element: (
-          <Suspense fallback={<Loader/>}>
+          <Suspense fallback={<Loader />}>
             <HeroSection />
             <Stats />
             <Courses />
@@ -54,9 +54,9 @@ const appRouter = createBrowserRouter([
         path: "login",
         element: (
           <AuthenticatedUser>
-            <Suspense fallback={<Loader/>}>
-              <Auth />
-            </Suspense>
+
+            <Auth />
+
           </AuthenticatedUser>
         ),
       },
@@ -64,7 +64,7 @@ const appRouter = createBrowserRouter([
         path: "my-learning",
         element: (
           <ProtectedRoute>
-            <Suspense fallback={<Loader/>}>
+            <Suspense fallback={<Loader />}>
               <MyLearning />
             </Suspense>
           </ProtectedRoute>
@@ -74,7 +74,7 @@ const appRouter = createBrowserRouter([
         path: "profile",
         element: (
           <ProtectedRoute>
-            <Suspense fallback={<Loader/>}>
+            <Suspense fallback={<Loader />}>
               <Profile />
             </Suspense>
           </ProtectedRoute>
@@ -84,7 +84,7 @@ const appRouter = createBrowserRouter([
         path: "course/search",
         element: (
           <ProtectedRoute>
-            <Suspense fallback={<Loader/>}>
+            <Suspense fallback={<Loader />}>
               <SearchPage />
             </Suspense>
           </ProtectedRoute>
@@ -94,7 +94,7 @@ const appRouter = createBrowserRouter([
         path: "course-detail/:courseId",
         element: (
           <ProtectedRoute>
-            <Suspense fallback={<Loader/>}>
+            <Suspense fallback={<Loader />}>
               <CourseDetail />
             </Suspense>
           </ProtectedRoute>
@@ -105,7 +105,7 @@ const appRouter = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <PurchaseCourseProtectedRoute>
-              <Suspense fallback={<Loader/>}>
+              <Suspense fallback={<Loader />}>
                 <CourseProgress />
               </Suspense>
             </PurchaseCourseProtectedRoute>
@@ -117,7 +117,7 @@ const appRouter = createBrowserRouter([
         path: "admin",
         element: (
           <AdminRoute>
-            <Suspense fallback={<Loader/>}>
+            <Suspense fallback={<Loader />}>
               <Sidebar />
             </Suspense>
           </AdminRoute>
@@ -126,7 +126,7 @@ const appRouter = createBrowserRouter([
           {
             path: "dashboard",
             element: (
-              <Suspense fallback={<Loader/>}>
+              <Suspense fallback={<Loader />}>
                 <Dashboard />
               </Suspense>
             ),
@@ -134,7 +134,7 @@ const appRouter = createBrowserRouter([
           {
             path: "course/create",
             element: (
-              <Suspense fallback={<Loader/>}>
+              <Suspense fallback={<Loader />}>
                 <AddCourse />
               </Suspense>
             ),
@@ -142,7 +142,7 @@ const appRouter = createBrowserRouter([
           {
             path: "course",
             element: (
-              <Suspense fallback={<Loader/>}>
+              <Suspense fallback={<Loader />}>
                 <CourseTable />
               </Suspense>
             ),
@@ -150,7 +150,7 @@ const appRouter = createBrowserRouter([
           {
             path: "course/:courseId",
             element: (
-              <Suspense fallback={<Loader/>}>
+              <Suspense fallback={<Loader />}>
                 <EditCourse />
               </Suspense>
             ),
@@ -158,7 +158,7 @@ const appRouter = createBrowserRouter([
           {
             path: "course/:courseId/lecture",
             element: (
-              <Suspense fallback={<Loader/>}>
+              <Suspense fallback={<Loader />}>
                 <CreateLecture />
               </Suspense>
             ),
@@ -166,7 +166,7 @@ const appRouter = createBrowserRouter([
           {
             path: "course/:courseId/lecture/:lectureId",
             element: (
-              <Suspense fallback={<Loader/>}>
+              <Suspense fallback={<Loader />}>
                 <EditLecture />
               </Suspense>
             ),
