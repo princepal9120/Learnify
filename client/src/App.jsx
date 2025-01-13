@@ -10,7 +10,7 @@ import {
 } from "./components/ProtectedRoutes";
 import PurchaseCourseProtectedRoute from "./components/PurchaseCourseProtectedRoute";
 import Loader from "./components/Loader";
-import Auth from "./pages/Login";
+import Login from "./pages/Login";
 // Lazy-loaded components
 
 const HeroSection = React.lazy(() => import("./pages/student/HeroSection"));
@@ -55,7 +55,7 @@ const appRouter = createBrowserRouter([
         element: (
           <AuthenticatedUser>
 
-            <Auth />
+            <Login />
 
           </AuthenticatedUser>
         ),
