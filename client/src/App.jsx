@@ -1,36 +1,36 @@
 import "./App.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import React, { Suspense } from "react";
-import MainLayout from "./Layout/MainLayout";
-import { ThemeProvider } from "./components/ThemeProvider";
+import MainLayout from "./Layout/MainLayout.jsx";
+import { ThemeProvider } from "./components/ThemeProvider.jsx";
 import {
   AdminRoute,
   AuthenticatedUser,
   ProtectedRoute,
 } from "./components/ProtectedRoutes";
 import PurchaseCourseProtectedRoute from "./components/PurchaseCourseProtectedRoute";
-import Loader from "./components/Loader";
-import Login from "./pages/Login";
+import Loader from "./components/Loader.jsx";
+import Login from "./pages/Login.jsx";
 // Lazy-loaded components
 
-const HeroSection = React.lazy(() => import("./pages/student/HeroSection"));
-const Courses = React.lazy(() => import("./pages/student/Courses"));
-const Profile = React.lazy(() => import("./pages/student/Profile"));
-const MyLearning = React.lazy(() => import("./pages/student/MyLearning"));
-const Sidebar = React.lazy(() => import("./pages/admin/Sidebar"));
-const Dashboard = React.lazy(() => import("./pages/admin/Dashboard"));
-const AddCourse = React.lazy(() => import("./pages/admin/course/AddCourse"));
-const CourseTable = React.lazy(() => import("./pages/admin/course/CourseTable"));
-const EditCourse = React.lazy(() => import("./pages/admin/course/EditCourse"));
-const CreateLecture = React.lazy(() => import("./pages/admin/lecture/CreateLecture"));
-const EditLecture = React.lazy(() => import("./pages/admin/lecture/EditLecture"));
-const CourseDetail = React.lazy(() => import("./pages/student/CourseDetail"));
-const CourseProgress = React.lazy(() => import("./pages/student/CourseProgress"));
-const SearchPage = React.lazy(() => import("./pages/student/SearchPage"));
-const Stats = React.lazy(() => import("./components/Stats"));
-const Categories = React.lazy(() => import("./components/Categories"));
-const Testimonials = React.lazy(() => import("./components/Tesimonials"));
-const CTA = React.lazy(() => import("./components/CTA"));
+const HeroSection = React.lazy(() => import("./pages/student/HeroSection.jsx"));
+const Courses = React.lazy(() => import("./pages/student/Courses.jsx"));
+const Profile = React.lazy(() => import("./pages/student/Profile.jsx"));
+const MyLearning = React.lazy(() => import("./pages/student/MyLearning,jsx"));
+const Sidebar = React.lazy(() => import("./pages/admin/Sidebar.jsx"));
+const Dashboard = React.lazy(() => import("./pages/admin/Dashboard.jsx"));
+const AddCourse = React.lazy(() => import("./pages/admin/course/AddCourse.jsx"));
+const CourseTable = React.lazy(() => import("./pages/admin/course/CourseTable.jsx"));
+const EditCourse = React.lazy(() => import("./pages/admin/course/EditCourse.jsx"));
+const CreateLecture = React.lazy(() => import("./pages/admin/lecture/CreateLecture.jsx"));
+const EditLecture = React.lazy(() => import("./pages/admin/lecture/EditLecture.jsx"));
+const CourseDetail = React.lazy(() => import("./pages/student/CourseDetail.jsx"));
+const CourseProgress = React.lazy(() => import("./pages/student/CourseProgress.jsx"));
+const SearchPage = React.lazy(() => import("./pages/student/SearchPage.jsx"));
+const Stats = React.lazy(() => import("./components/Stats.jsx"));
+const Categories = React.lazy(() => import("./components/Categories.jsx"));
+const Testimonials = React.lazy(() => import("./components/Tesimonials.jsx"));
+const CTA = React.lazy(() => import("./components/CTA.jsx"));
 
 const appRouter = createBrowserRouter([
   {
