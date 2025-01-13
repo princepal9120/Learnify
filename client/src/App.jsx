@@ -8,7 +8,7 @@ import {
   AuthenticatedUser,
   ProtectedRoute,
 } from "./components/ProtectedRoutes";
-import PurchaseCourseProtectedRoute from "./components/PurchaseCourseProtectedRoute";
+import PurchaseCourseProtectedRoute from "./components/PurchaseCourseProtectedRoute.jsx";
 import Loader from "./components/Loader.jsx";
 import Login from "./pages/Login.jsx";
 // Lazy-loaded components
@@ -16,7 +16,7 @@ import Login from "./pages/Login.jsx";
 const HeroSection = React.lazy(() => import("./pages/student/HeroSection.jsx"));
 const Courses = React.lazy(() => import("./pages/student/Courses.jsx"));
 const Profile = React.lazy(() => import("./pages/student/Profile.jsx"));
-const MyLearning = React.lazy(() => import("./pages/student/MyLearning,jsx"));
+const MyLearning = React.lazy(() => import("./pages/student/MyLearning.jsx"));
 const Sidebar = React.lazy(() => import("./pages/admin/Sidebar.jsx"));
 const Dashboard = React.lazy(() => import("./pages/admin/Dashboard.jsx"));
 const AddCourse = React.lazy(() => import("./pages/admin/course/AddCourse.jsx"));
