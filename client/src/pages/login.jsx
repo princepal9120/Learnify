@@ -197,7 +197,13 @@ export default function Login() {
                 "Login"
               )}
             </Button>
+           
+
           </CardFooter>
+          <div className="flex justify-center items-start px-2 gap-2">
+          <h1 className="text-gray-600">Email: <span className="text-blue-600">student@gmail.com</span> Password: <span className="text-blue-600">student</span></h1>
+          <h1 className="text-gray-600"> Email: <span className="text-blue-600">teacher@gmail.com</span> Password: <span className="text-blue-600">teacher</span></h1>
+          </div>
         </Card>
       </TabsContent>
     </Tabs>
