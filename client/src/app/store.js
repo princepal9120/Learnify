@@ -1,4 +1,4 @@
-import {configureStore } from "@reduxjs/toolkit"
+import { configureStore } from "@reduxjs/toolkit"
 import { authApi } from "@/features/api/authApi.js"
 import rootReducer from "./rootReducer.js"
 import { courseApi } from "@/features/api/courseApi.js"
@@ -12,14 +12,14 @@ export const appStore = configureStore({
 
 // Initialize app - try to load user but don't block on failure
 const initializeApp = async () => {
-  try {
-    await appStore.dispatch(
-      authApi.endpoints.loadUser.initiate({}, { forceRefetch: true })
-    )
-    console.log("✓ User profile loaded")
-  } catch (error) {
-    console.log("ℹ️ App initialized without user (guest mode)")
-  }
+    try {
+        await appStore.dispatch(
+            authApi.endpoints.loadUser.initiate({}, { forceRefetch: true })
+        )
+        console.log("✓ User profile loaded")
+    } catch (error) {
+        console.log("ℹ️ App initialized without user (guest mode)")
+    }
 }
 
 initializeApp()

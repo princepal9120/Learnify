@@ -14,15 +14,15 @@ const baseQuery = fetchBaseQuery({
 // Wrapper around baseQuery to handle errors
 const baseQueryWithErrorHandling = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-  
+
   if (result.error) {
     console.error("Purchase API Error:", result.error);
-    
+
     if (result.error.status === 0 || result.error.message?.includes("CORS")) {
       console.error("CORS Error - Check backend configuration");
     }
   }
-  
+
   return result;
 };
 

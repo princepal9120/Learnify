@@ -32,7 +32,7 @@ export const AdminRoute = ({ children }) => {
 
   if (user?.role !== "instructor") {
     return (
-      <motion.div 
+      <motion.div
         className="flex items-center justify-center min-h-screen bg-gray-50"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

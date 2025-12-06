@@ -15,13 +15,13 @@ const baseQuery = fetchBaseQuery({
 // Wrapper around baseQuery to handle errors with retry logic
 const baseQueryWithErrorHandling = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions);
-  
+
   if (result.error) {
     const statusCode = result.error.status;
     const errorMessage = result.error.data?.message || result.error.message || "Unknown error";
-    
+
     console.error(`[AuthAPI] ${args.url || 'Request'} - Status: ${statusCode}, Message: ${errorMessage}`);
-    
+
     // Handle specific error types
     if (statusCode === 0 || result.error.message?.includes("CORS")) {
       console.error("⚠️ CORS Error - Backend may not be reachable");
@@ -33,7 +33,7 @@ const baseQueryWithErrorHandling = async (args, api, extraOptions) => {
       console.error("🔴 Server error - Backend issue");
     }
   }
-  
+
   return result;
 };
 
