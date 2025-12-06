@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
 const initialState = {
-  theme: "system",
+  theme: "light",
   setTheme: () => null,
 };
 
@@ -9,7 +9,7 @@ const ThemeProviderContext = createContext(initialState);
 
 export function ThemeProvider({
   children,
-  defaultTheme = "system",
+  defaultTheme = "light",
   storageKey = "vite-ui-theme",
   ...props
 }) {
@@ -20,26 +20,19 @@ export function ThemeProvider({
   useEffect(() => {
     const root = window.document.documentElement;
 
+    // Remove all theme classes
     root.classList.remove("light", "dark");
 
-    if (theme === "system") {
-      const systemTheme = window.matchMedia("(prefers-color-scheme: dark)")
-        .matches
-        ? "dark"
-        : "light";
-
-      root.classList.add(systemTheme);
-      return;
-    }
-
-    root.classList.add(theme);
+    // Always use light theme for brutalist design system
+    root.classList.add("light");
+    localStorage.setItem(storageKey, "light");
   }, [theme]);
 
   const value = {
-    theme,
+    theme: "light",
     setTheme: (theme) => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
+      // Force light theme only - no dark mode for brutalist design
+      localStorage.setItem(storageKey, "light");
     },
   };
 
@@ -48,6 +41,7 @@ export function ThemeProvider({
       {children}
     </ThemeProviderContext.Provider>
   );
+
 }
 
 export const useTheme = () => {
